@@ -1,0 +1,116 @@
+// app/products/[id]/page.js
+export async function generateStaticParams() {
+  const res = await fetch('https://api.example.com/products');
+  const products = await res.json();
+
+  return products.slice(0,3).map((product) => ({
+    id: product.id,
+  }));
+}
+
+export default async function ProductPage({ params }) {
+  const res = await fetch(`https://api.example.com/products/${params.id}`);
+  const product = await res.json();
+
+  return (
+    <div>
+      <h1>{product.name}</h1>
+      <p>{product.description}</p>
+    </div>
+  );
+}
+==============================================================================================
+CSR,SSG,SSR,ISR,PPR
+
+
+Client Side Rendering(CSR) - server theke root container/div container asbe and onek gulo javascript file bundle akare asbe . javascript bundle file theke html create hoye oi root container e append hoye jabe.
+ei entire process hobe browser e.
+
+next js - pre-rendering use kore
+pre-rendering - sob kaj hobe server e .server theke html create hoye browswer e visible hobe.
+
+pre-rendering - static side generation(SSG),server side rendering(SSR)
+
+static side generation(SSG)-build time e project er modde joto static content ase sob gulo static content er jonno ek ekta html file create kore.kono prokar dynamic content nai.jokhon kono route e hit kora hoy tokhon static content gulo ase.(force:"cache")
+
+server side rendering(SSR)-user er request onusare database e query chole server aslo.html content server e create holo.then browser e visible holo. (force:"no-cache")
+
+Incremental Static Regeneration (ISR) - (next:"revalidate:30")
+
+
+
+SSR & SSG
+SSR:
+The page is generated on each request (dynamically).
+Data fetching happens on the server at runtime.
+Ideal for pages that need real-time or frequently updated content.
+
+✅ Pros of SSR:
+✔ Fresh data on every request.
+✔ Good for user-specific pages (e.g., dashboards).
+✔ Works well for frequently changing data.
+
+🚫 Cons of SSR:
+❌ Slower initial load (fetching data at request time).
+❌ Higher server load (page regenerates on every request).
+
+SSG:
+
+The page is generated at build time (before deployment).
+Data fetching happens only once during build.
+Ideal for content that doesn’t change often (blogs, product catalogs, etc.).
+
+✅ Pros of SSG:
+✔ Faster load time (pre-rendered).
+✔ Better SEO (since pages are ready instantly).
+✔ Lower server load (static files are served).
+
+🚫 Cons of SSG:
+❌ Not ideal for real-time data (unless using ISR with revalidate).
+❌ Requires a rebuild for content updates (unless ISR is enabled).
+
+=================================================
+
+parallel routing:
+a.onke gulo features same time e render hobe.
+b.ekti load hote late hole onnoti load hobe.
+c.performance besi valo
+
+Intercepting routing:
+a.kono link e click korle puro page refresh na hoye just modal open hobe
+b.user er jonno fast and smooth
+
+dynamic routing:
+a.same component use kore alada alada content show korano hocce.
+b./products/1 গেলে Product ID: 1 দেখাবে
+/products/2 গেলে Product ID: 2 দেখাবে
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
