@@ -6,8 +6,8 @@ import Image from "next/image";
 export default function Home() {
   return (
     <div>
-      <KeyMetrics />
-      <ChartComp />
+      {/* <KeyMetrics />
+      <ChartComp /> */}
     </div>
   );
 }
